@@ -6,8 +6,8 @@ namespace University
 {
     interface IUniversity
     {
-        double CalculateLecturerWorkingHours(Lecturer lecturer);
-        decimal CalculateLecturePrice(Lecture lecture);
-        decimal CalculateLecturerSalary(Lecturer lecturer);
+        decimal CalculateLecturePrice(Lecturer lecturer, Lecture lecture);
+
+        double CalculateOverallLecturerTimeDedicatedToLecture(Lecturer lecturer, Lecture lecture);
     }
 }

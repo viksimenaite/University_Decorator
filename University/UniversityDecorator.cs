@@ -7,24 +7,40 @@ namespace University
     abstract class UniversityDecorator : IUniversity
     {
         private readonly IUniversity university;
-        protected UniversityDecorator(IUniversity university)
+
+        public UniversityDecorator(IUniversity university)
         {
             this.university = university;
         }
 
-        public virtual decimal CalculateLecturePrice(Lecture lecture)
+        public virtual decimal CalculateLecturePrice(Lecturer lecturer, Lecture lecture)
         {
-            return university.CalculateLecturePrice(lecture);
+            return university.CalculateLecturePrice(lecturer, lecture);
         }
 
-        public virtual decimal CalculateLecturerSalary(Lecturer lecturer)
+        public virtual double CalculateOverallLecturerTimeDedicatedToLecture(Lecturer lecturer, Lecture lecture)
         {
-            return university.CalculateLecturerSalary(lecturer);
+            return university.CalculateOverallLecturerTimeDedicatedToLecture(lecturer, lecture);
         }
 
-        public virtual double CalculateLecturerWorkingHours(Lecturer lecturer)
+        public static T GetUniversityDecorator<T>(IUniversity uni) where T : UniversityDecorator
         {
-            return university.CalculateLecturerWorkingHours(lecturer);
+            try
+            {
+                if(uni is T)
+                {
+                    return (T) uni;
+                }
+                else
+                {
+                    T decorator = GetUniversityDecorator<T>(((UniversityDecorator)uni).university);
+                    return decorator;
+                }
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
         }
     }
 }

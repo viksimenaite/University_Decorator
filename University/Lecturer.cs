@@ -6,19 +6,19 @@ namespace University
 {
     class Lecturer
     {
-        string name;
-        bool isDoctor;
-        int experience;
+        private string name;
+        private bool hasPHD;
+        private int experience;
 
-        public Lecturer(string name, bool isDoctor, int experience)
+        public Lecturer(string name, bool hasPHD, int experience)
         {
             this.name = name;
-            this.isDoctor = isDoctor;
+            this.hasPHD = hasPHD;
             this.experience = experience;
         }
 
         public string Name { get => name; set => name = value; }
-        public bool IsDoctor { get => isDoctor; set => isDoctor = value; }
         public int Experience { get => experience; set => experience = value; }
+        public bool HasPHD { get => hasPHD; set => hasPHD = value; }
     }
 }

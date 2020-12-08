@@ -6,20 +6,40 @@ namespace University
 {
     class OrdinaryUniversity : IUniversity
     {
-        private readonly decimal hourlyRate = 20.0m;
-        public decimal CalculateLecturePrice(Lecture lecture)
+        private readonly decimal privateLecturePriceCoefficient = 2m;
+        private readonly decimal lerturerWithPHDLecturePriceCoefficient = 1.2m;
+        private readonly decimal lerturerWithExperienceLecturePriceCoefficient = 1.3m;
+        private readonly int requiredYearsOfExperience = 5;
+        private readonly double lerturerWithExperiencePreparationTimeCoefficient = 1.5;
+        private readonly double lerturerWithoutExperiencePreparationTimeCoefficient = 2.5;
+        public decimal CalculateLecturePrice(Lecturer lecturer, Lecture lecture)
         {
-            throw new NotImplementedException();
+            decimal price = lecture.BasePrice;
+            if (lecture.IsPrivate)
+            {
+                price *= privateLecturePriceCoefficient;
+            }
+            if (lecturer.HasPHD)
+            {
+                price *= lerturerWithPHDLecturePriceCoefficient;
+            }
+            if (lecturer.Experience > 2)
+            {
+                price *= lerturerWithExperienceLecturePriceCoefficient;
+            }
+            return price;
         }
 
-        public decimal CalculateLecturerSalary(Lecturer lecturer)
+        public double CalculateOverallLecturerTimeDedicatedToLecture(Lecturer lecturer, Lecture lecture) //include time to prepare for the lecture
         {
-            throw new NotImplementedException();
-        }
-
-        public double CalculateLecturerWorkingHours(Lecturer lecturer)
-        {
-            throw new NotImplementedException();
+            if (lecturer.Experience > requiredYearsOfExperience)
+            {
+                return lecture.Duration * lerturerWithExperiencePreparationTimeCoefficient;
+            }
+            else
+            {
+                return lecture.Duration * lerturerWithoutExperiencePreparationTimeCoefficient;
+            }
         }
     }
 }
