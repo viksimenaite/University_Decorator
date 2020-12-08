@@ -27,5 +27,11 @@ namespace University
         public bool IsPrivate { get => isPrivate; set => isPrivate = value; }
         public bool IsVideo { get => isVideo; set => isVideo = value; }
         public decimal BasePrice { get => basePrice; set => basePrice = value; }
+
+        public override string ToString()
+        {
+            return Subject;
+
+        }
     }
 }
